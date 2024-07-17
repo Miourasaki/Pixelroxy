@@ -3,6 +3,7 @@ use std::net::TcpStream;
 use std::thread;
 use std::time::Duration;
 use log::{debug, info};
+use serde_json::json;
 use crate::libs::connect::package::{BufferIndex, ConnectPackage, get_package};
 use crate::libs::connect::packet::pack;
 use crate::server::auth::PlayerConnect;
@@ -39,7 +40,8 @@ impl PlayerConnect {
             thread::sleep(Duration::from_secs(1));
             if let Ok(package) = get_package(&target_stream, false) {
                 println!("{:?}", package);
-                self.stream.write_all(&package.original_package).unwrap()
+                self.stream.write_all(&package.original_package).unwrap();
+
             }
         }
 
